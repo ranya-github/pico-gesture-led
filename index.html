@@ -72,8 +72,9 @@
             if (gestureBuffer.length > gestureThreshold) gestureBuffer.shift();
             if (gestureBuffer.length === gestureThreshold && gestureBuffer.every(c => c === cmd) && cmd !== lastCmd) {
               lastCmd = cmd;
-              fetch(LED_URL + cmd).then(() => console.log("Commande envoyée :", cmd));
-            }
+              fetch(LED_URL + cmd, { mode: 'no-cors' })
+              .then(() => console.log("Commande envoyée :", cmd))
+              .catch(err => console.error("Erreur d'envoi :", err));            }
           }
         } else {
           statusBox.innerText = "Aucune main détectée";
